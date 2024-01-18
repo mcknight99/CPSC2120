@@ -1,0 +1,7 @@
+This project will test your ability to read in an unknown number of items from stdin.
+
+You will make a method named ReadStdIn2, which takes no parameters.  It will read from standard in until the input is "q", then stop.
+
+This method will print an integer, the number of items you have read in (not including "q").  Input is case-sensitive.
+
+Your main should be named "testerMain.cpp".

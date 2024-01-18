@@ -1,0 +1,10 @@
+This project will test your ability to create overloaded functions.  
+
+You must write three functions named WriteOut, each with a single parameter.  One will take a string, one will take an integer, and one will take a double.  All functions will return an integer. 
+
+print the parameter to stdout and return 1 if your input is a string
+print the parameter to stdout and return 2 if your input is an integer
+print the parameter to stdout and return 3 if your input is a double
+ 
+
+Implement a review.cpp file following the definitions in review.h.  A main should not be required, but if the system is giving an error name it testerMain.cpp.

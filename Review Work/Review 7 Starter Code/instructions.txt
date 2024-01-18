@@ -1,0 +1,11 @@
+In this project, you will write a recursive program to calculate the nth Fibonacci number.  Fibonacci numbers are defined according to the formula below:
+
+F(0) = 0, F(1) = 1;
+
+F(n) = F(n-1) + F(n-2) for n > 1
+
+ 
+
+Name your function Fibonacci.  It will take an integer parameter for the value of n, and return an integer that is the nth Fibonacci number.  
+
+A main should not be necessary, but if it is required name it testerMain.cpp.

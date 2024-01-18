@@ -1,0 +1,7 @@
+In this assignment, you will demonstrate that you remember basic Input/Output (I/O) operations.  
+
+Your assignment is to read three space-separated values from stdin (ReadStdIn).  
+They will be an integer, a double, and a "single word" string, ending at the first whitespace character (in that order).  
+You must then print them to stdout on separate lines.
+
+Implement the ReadStdIn function in review.cpp with a main() function in testerMain.cpp calling ReadStdIn().

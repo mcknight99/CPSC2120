@@ -1,0 +1,5 @@
+In this assignment, you will read input from stdin until you see "q", just as in the last assignment.  
+
+However, once you see "q", you will write everything that was inputted back out to stdout on a single line, with an end-line at the end.
+
+Your function should be called "ReadWrite", and your main file should again be called "testerMain.cpp".
