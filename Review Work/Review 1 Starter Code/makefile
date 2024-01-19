@@ -1,6 +1,10 @@
 compile:
-	g++ .\review.cpp -c
-	g++ .\testerMain.cpp review.o
+	g++ .\review.cpp -c -Wall
+	g++ .\testerMain.cpp review.o -o "testerMain.exe" -Wall
 
 run:
-	.\a.exe
+	.\testerMain.exe
+
+clean:
+	del review.o
+	del testerMain.exe

@@ -20,3 +20,5 @@ https://gnuwin32.sourceforge.net/packages/make.htm
 https://chocolatey.org/install
 3. Run the following command in the terminal after installing chocolatey:
 >choco install make 
+
+# Note: 'del' is used instead of 'rm' in makefiles for the Windows console. Non-Windows may have issues with 'del' for cleaning folders
