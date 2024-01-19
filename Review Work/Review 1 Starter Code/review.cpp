@@ -4,7 +4,7 @@
 
 void ReadStdIn() {
 
-    std::cout<<"Please input your 3 inputs (integer, double, single word string):\n";
+    //std::cout<<"Please input your 3 inputs (integer, double, single word string):\n"; //Autograder doesn't like this but it is good for the user
 
     int integerInput;
     double doubleInput;

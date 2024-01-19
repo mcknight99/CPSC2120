@@ -4,3 +4,7 @@ compile:
 
 run:
 	.\testerMain.exe
+
+clean:
+	del *.o
+	del *.exe
