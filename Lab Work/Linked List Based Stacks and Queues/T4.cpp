@@ -20,6 +20,6 @@ int main()
         cout << "expected/correct value -1, actual value when testing " << list1.find(-2) << ".\n";
         return 1;
     }
-    cout << "Passed" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPassed" << endl;
     return 0;
 }

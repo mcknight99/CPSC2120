@@ -5,6 +5,8 @@
  * Assignment Name: Lab 1: Linked List Based Stacks and Queues
  */
 
+// -1073741819 Segfault
+
 #pragma once
 
 #include <iostream>
@@ -117,10 +119,16 @@ bool List<T>::empty()
 template <class T>
 void List<T>::insertStart(T value)
 {
-  Node<T> newNode = Node<T>(value);
-  newNode->next = start;
-  start=&newNode;
-  mySize++;
+  if(mySize==0) {
+    start->value=value;
+    start->next=nullptr;
+    mySize++;
+  } else {
+    Node<T>* newNode = new Node<T>(value);
+    newNode->next = start;
+    start=newNode;
+    mySize++;
+  }
 }
 
 // Create a new node with value, and insert that new node
@@ -128,34 +136,40 @@ void List<T>::insertStart(T value)
 template <class T>
 void List<T>::insertEnd(T value)
 {
-  mySize++;
-  Node<T> newNode = Node<T>(value);
-  Node<T>* current = start;
-  std::cout<<"supper\n";
-  while(current->next!=nullptr) {
-    current=current->next;
-    std::cout<<"per\n";
+  if(mySize==0) {
+    Node<T>* newNode = new Node<T>(value);
+    start=newNode;
+    mySize++;
+  std::cout<<"inserted " << value << " at end\n";
+  } else {
+    mySize++;
+    Node<T>* newNode = new Node<T>(value);
+    Node<T>* current = start;
+    while(current->next!=nullptr) {
+      current=current->next;
+    }
+    current->next=newNode;
+  std::cout<<"inserted " << value << " at end\n";
   }
-  std::cout<<"sup\n";
-  current->next=&newNode;
 }
 
 // Create a new node with value <value>, and insert that new node at position j
 template <class T>
 void List<T>::insertAt(T value, int j)
 {
-  Node<T> newNode = Node<T>(value);
 
   if(mySize>j) { // > because mySize will be one larger than the index of the last value
   // ex. size of 10, last index is 9. if j is 10, no such index exists
+  Node<T>* newNode = new Node<T>(value);
+  std::cout<<"inserting "<<value<<" at "<<j<<std::endl;
   mySize++;
     Node<T>* current = start;
-    for(int i = 0; i<j; i++) {
+    for(int i = 0; i<j-1; i++) { //-1 because inserting at index j will put the newNode after the current node without it
       current=current->next;
     }
     newNode->next = current->next;
-    current->next = newNode->next;
-  } //can't else because void func
+    current->next = newNode;
+  } //can't error else because void func
 }
 
 // Remove node at start
@@ -166,6 +180,7 @@ void List<T>::removeStart()
   if(!empty()) {
     mySize--;
     Node<T>* afterDel = start->next;
+    std::cout<<"removed start (" << start->value << ")\n";
     delete start;
     start=afterDel;
   }

@@ -24,6 +24,6 @@ int main()
         cout << "expected/correct value 2, actual value when testing " << list3.find('r') << ".\n";
         return 1;
     }
-    cout << "Passed" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPassed" << endl;
     return 0;
 }

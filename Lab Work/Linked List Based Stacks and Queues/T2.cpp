@@ -14,6 +14,7 @@ int main()
         list2.insertEnd(s[i]);
     }
     list2.insertAt("Worf", 2);
+    list2.print("list2-b");
 
     // This can be an ofstream as well or any other ostream
     stringstream buffer;
@@ -58,6 +59,6 @@ int main()
             return 1;
         }
     }
-    cout << "Passed" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPassed" << endl;
     return 0;
 }

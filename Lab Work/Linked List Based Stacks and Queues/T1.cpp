@@ -11,10 +11,9 @@ int main()
     List<int> list1;
     for (int i=1, j = 1; i <= 10; i++){
         j = -2*j;
-        list1.insertEnd(j);//
+        list1.insertEnd(j);
     }
-    //list1.removeStart();//
-    return 3;
+    list1.removeStart();
 
     // This can be an ofstream as well or any other ostream
     stringstream buffer;
@@ -28,7 +27,7 @@ int main()
     // Use cout as usual
     // cout << "Hello World";
 
-    //list1.print("list");//
+    list1.print("list");
 
     int test[9];
     string bob;
@@ -44,7 +43,7 @@ int main()
     int test2[] = {4,-8,16,-32,64,-128,256,-512,1024};
     for (int i=0; i<9;i++){
         buffer >> bob;
-        //test[i] = stoi(bob);
+        test[i] = stoi(bob);
         // ASSERT_EQ(test[i],test2[i]);
     }
 
@@ -53,12 +52,12 @@ int main()
 
     for (int i=0; i<9; i++)
     {
-        //if (test[i] != test2[i])
+        if (test[i] != test2[i])
         {
-            //cout << "Mismatch at position " << i << ": expected/correct value " << test2[i] << ", actual value when testing " << test[i] << ".\n";
+            cout << "Mismatch at position " << i << ": expected/correct value " << test2[i] << ", actual value when testing " << test[i] << ".\n";
             return 1;
         }
     }
-    cout << "Passed" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPassed" << endl;
     return 0;
 }
