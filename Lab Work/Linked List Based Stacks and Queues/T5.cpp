@@ -18,6 +18,6 @@ int main()
         cout << "expected/correct value 6, actual value when testing " << list2.size() << ".\n";
         return 1;
     }
-    cout << "Passed" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPassed" << endl;
     return 0;
 }

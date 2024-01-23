@@ -27,6 +27,6 @@ int main()
         cout << "expected/correct value true, actual value when testing " << list3.empty() << ".\n";
         return 1;
     }
-    cout << "Passed" << endl;
+    cout << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPassed" << endl;
     return 0;
 }

@@ -1,0 +1,24 @@
+#Trying to learn makefiles to clean up the current makefile's spammy code, and making it reusable for future Test cpp files by changing the NUMBERS
+# List of numbers
+NUMBERS := 1 2 4 5 8 10
+
+# Generate file names
+FILES := $(foreach num,$(NUMBERS),T$(num).cpp)
+
+# Compiler flags
+CXXFLAGS := -Wall
+
+# Compile rule for each file
+all: $(FILES)
+    @echo "Compilation complete"
+
+# Rule to compile individual files
+T%.cpp: CXXFLAGS += -Wall
+T%.cpp:
+    g++ -o $@ $< $(CXXFLAGS)
+
+# Clean rule to remove generated files
+clean:
+    rm -f $(FILES)
+
+.PHONY: all clean

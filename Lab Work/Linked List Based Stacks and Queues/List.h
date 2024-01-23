@@ -5,6 +5,8 @@
  * Assignment Name: Lab 1: Linked List Based Stacks and Queues
  */
 
+// -1073741819 Segfault
+
 #pragma once
 
 #include <iostream>
@@ -117,11 +119,16 @@ bool List<T>::empty()
 template <class T>
 void List<T>::insertStart(T value)
 {
-  Node<T>* newNode;
-  newNode->next = start;
-  newNode->value=value;
-  start=newNode;
-  mySize++;
+  if(mySize==0) {
+    start->value=value;
+    start->next=nullptr;
+    mySize++;
+  } else {
+    Node<T>* newNode = new Node<T>(value);
+    newNode->next = start;
+    start=newNode;
+    mySize++;
+  }
 }
 
 // Create a new node with value, and insert that new node
@@ -129,33 +136,40 @@ void List<T>::insertStart(T value)
 template <class T>
 void List<T>::insertEnd(T value)
 {
-  mySize++;
-  Node<T>* newNode;
-  newNode->next=nullptr;
-  newNode->value=value;
-  Node<T>* current = start;
-  while(current->next!=nullptr) {
-    current=current->next;
+  if(mySize==0) {
+    Node<T>* newNode = new Node<T>(value);
+    start=newNode;
+    mySize++;
+  std::cout<<"inserted " << value << " at end\n";
+  } else {
+    mySize++;
+    Node<T>* newNode = new Node<T>(value);
+    Node<T>* current = start;
+    while(current->next!=nullptr) {
+      current=current->next;
+    }
+    current->next=newNode;
+  std::cout<<"inserted " << value << " at end\n";
   }
-  current->next=newNode;
 }
 
 // Create a new node with value <value>, and insert that new node at position j
 template <class T>
 void List<T>::insertAt(T value, int j)
 {
-  Node<T>* newNode;
-  newNode->value=value;
 
-  if(mySize>=j) {
+  if(mySize>j) { // > because mySize will be one larger than the index of the last value
+  // ex. size of 10, last index is 9. if j is 10, no such index exists
+  Node<T>* newNode = new Node<T>(value);
+  std::cout<<"inserting "<<value<<" at "<<j<<std::endl;
   mySize++;
     Node<T>* current = start;
-    for(int i = 0; i<j; i++) {
+    for(int i = 0; i<j-1; i++) { //-1 because inserting at index j will put the newNode after the current node without it
       current=current->next;
     }
     newNode->next = current->next;
-    current->next = newNode->next;
-  } //can't else because void func
+    current->next = newNode;
+  } //can't error else because void func
 }
 
 // Remove node at start
@@ -165,9 +179,10 @@ void List<T>::removeStart()
 {
   if(!empty()) {
     mySize--;
-    Node<T>* delscratch = start;
-    start=start->next;
-    delete delscratch;
+    Node<T>* afterDel = start->next;
+    std::cout<<"removed start (" << start->value << ")\n";
+    delete start;
+    start=afterDel;
   }
 }
 
@@ -194,7 +209,19 @@ void List<T>::removeEnd()
 template <class T>
 void List<T>::removeAt(int j)
 {
-  mySize--;
+  if(mySize>j)  {
+    mySize--;
+    Node<T>* current = start;
+    for(int i = 0; i<j-1; i++) { //j-1 to land on the node before the node to remove
+      current = current->next;
+    }
+    Node<T>* afterDel = current->next->next; //the node that comes after the deleted node
+    delete current->next; //delete the actual memory 
+    // I initially wanted to make a new Nodeptr and store the deleted node then delete the nodeptr, 
+    // but wasn't sure if it deleted the actual memory so this fixes it in a roundabout way.
+    // Working backwards, I fixed this in removeStart() as well, and removeEnd() had no such issue.
+    current->next = afterDel;
+  }
 }
 
 // Return the value of the first node in the Linked List,
@@ -202,6 +229,11 @@ void List<T>::removeAt(int j)
 template <class T>
 T List<T>::getFirst()
 {
+  if(!empty()) {
+  return start->value;
+  } else {
+    return T();
+  }
 }
 
 // Return the value of the last node in the Linked List,
@@ -209,6 +241,14 @@ T List<T>::getFirst()
 template <class T>
 T List<T>::getLast()
 {
+  Node<T>* current = start;
+  //in retrospect, I've written this while loop a lot, and it may have been good
+  //to have a helper function to return the node instead of the value for
+  //select functions, like a getLastNode() function instead of rewriting the iterator
+  while(current->next!=nullptr) { 
+    current=current->next;
+  }
+  return current->value;
 }
 
 // Return the value of the node at position j in the Linked List,
@@ -216,6 +256,13 @@ T List<T>::getLast()
 template <class T>
 T List<T>::getAt(int j)
 {
+  if(mySize>j) {
+    Node<T>* current = start;
+    for(int i = 0; i<j; i++) {
+      current = current->next;
+    }
+    return current->value;
+  }
 }
 
 // Return the position of the (first) node whose value is equal to the key
