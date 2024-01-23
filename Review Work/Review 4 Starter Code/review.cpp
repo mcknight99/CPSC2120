@@ -6,7 +6,7 @@
 void ReadWrite()
 {
 
-    // std::cout<<"Reading in. Enter 'q' to quit and sum read in count:"<<std::endl; //Again again, auto grader does not like couts
+    std::cout<<"Reading in. Enter 'q' to quit and sum read in count:"<<std::endl; //Again again, auto grader does not like couts. Comment out when submitting
 
     std::vector<std::string> userInputVector;
 

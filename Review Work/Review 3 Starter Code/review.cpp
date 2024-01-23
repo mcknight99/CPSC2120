@@ -5,7 +5,7 @@
 
 void ReadStdIn2() {
 
-    //std::cout<<"Reading in. Enter 'q' to quit and sum read in count:"<<std::endl; //Again, auto grader does not like couts
+    std::cout<<"Reading in. Enter 'q' to quit and sum read in count:"<<std::endl; //Again, auto grader does not like couts. Comment out when submitting
 
     int count = -1; //Starting at -1 for the do-while loop, because it increments whether or not the first entry is a q. So if the first entry is a q, it'll say 0 entries
     //starting it at 0 would mean copying a few lines outside of the do-while, making it a while, and only having count++ inside the while
