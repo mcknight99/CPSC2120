@@ -6,7 +6,7 @@
  */
 
 #pragma once
-
+#include "List.h"
 
 //This class represents a Queue implemented via Linked List
 //Do not modify anything in the class interface
@@ -36,28 +36,37 @@ class ListQueue{
 //Construct an empty ListQueue by initializing this ListQueue's instance variables
 template <class T>
 ListQueue<T>::ListQueue(){
+  queue = List<T>();
 }
 
 //Destroy all nodes in this ListQueue to prevent memory leaks
 template <class T>
 ListQueue<T>::~ListQueue(){
+  std::cout<<"destructing list queue\n";
+  while (!empty())
+  {
+    queue.removeStart();
+  }
 }
 
 //Return the size of this ListQueue
 template <class T>
 int ListQueue<T>::size(){
+  return queue.size();
 }
 
 //Return true if this ListQueue is empty
 //Otherwise, return false
 template <class T>
 bool ListQueue<T>::empty(){
+  return queue.empty();
 }
 
 //Create a new node with value, and insert that new node
 //into this ListQueue in its correct position
 template <class T>
 void ListQueue<T>::enqueue(T value){
+  queue.insertEnd(value);
 }
 
 //Dequeue an element from the queue.
@@ -65,4 +74,8 @@ void ListQueue<T>::enqueue(T value){
 //AND returning the value
 template <class T>
 T ListQueue<T>::dequeue(){
+  T value = queue.getFirst();
+  queue.removeStart();
+  return value;
 }
+

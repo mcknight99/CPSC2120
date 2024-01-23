@@ -74,9 +74,9 @@ List<T>::~List()
   std::cout<<"destructing linked list\n";
   while (!empty())
   {
-    removeEnd();
+    removeStart();
   }
-  mySize=0;
+  mySize=0; //should already be zero after removeStart()s but whatever
 }
 
 // Return the size of this list
@@ -163,17 +163,23 @@ void List<T>::insertAt(T value, int j)
 {
 
   if(mySize>j) { // > because mySize will be one larger than the index of the last value
-  // ex. size of 10, last index is 9. if j is 10, no such index exists
-  Node<T>* newNode = new Node<T>(value);
-  std::cout<<"inserting "<<value<<" at "<<j<<std::endl;
-  mySize++;
-    Node<T>* current = start;
-    for(int i = 0; i<j-1; i++) { //-1 because inserting at index j will put the newNode after the current node without it
-      current=current->next;
-    }
-    newNode->next = current->next;
-    current->next = newNode;
-  } //can't error else because void func
+  if(j==0) {
+    insertStart(value);
+  } else if(j==mySize) {
+    insertEnd(value);
+  } else {
+    // ex. size of 10, last index is 9. if j is 10, no such index exists
+    Node<T>* newNode = new Node<T>(value);
+    std::cout<<"inserting "<<value<<" at "<<j<<std::endl;
+    mySize++;
+      Node<T>* current = start;
+      for(int i = 0; i<j-1; i++) { //-1 because inserting at index j will put the newNode after the current node without it
+        current=current->next;
+      }
+      newNode->next = current->next;
+      current->next = newNode;
+    } //can't error else because void func
+  }
 }
 
 // Remove node at start
@@ -195,16 +201,16 @@ void List<T>::removeStart()
 template <class T>
 void List<T>::removeEnd()
 {
-  if(mySize==1) {
+  if(mySize==1) { //doing this to be able to store backwards one node, and the start doesn't have a node before it
   std::cout<<"removing end of one long list, ";
     removeStart();
   } else if(!empty()) { //it's times like this that i'd like to use doubly linked lists
-  std::cout<<"removing end\n";
     mySize--;
     Node<T>* current = start;
     while(current->next->next!=nullptr) {
       current=current->next;
     }
+    std::cout<<"removing end (" << current->next->value << ")\n";
     delete current->next;
     current->next=nullptr;
   }
@@ -262,13 +268,16 @@ T List<T>::getLast()
 template <class T>
 T List<T>::getAt(int j)
 {
-  if(mySize>j) {
+  if(mySize>j && mySize!=0) {
     Node<T>* current = start;
     for(int i = 0; i<j; i++) {
       current = current->next;
     }
     return current->value;
-  }
+  } else { //will also return T() if j is OOB
+    return T();
+  } 
+
 }
 
 // Return the position of the (first) node whose value is equal to the key
