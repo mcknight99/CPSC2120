@@ -8,6 +8,7 @@ using namespace std;
 int main()
 {
     List<int> list1;
+    list1.print("list1");
     for(int i = 1, j = 1; i <= 10; i++){
         j = -2 * j;
         list1.insertStart(j);
@@ -17,7 +18,6 @@ int main()
     if (list1.find(-2) != -1)
     {
         cout << "expected/correct value -1, actual value when testing " << list1.find(-2) << ".\n";
-        list1.print("list T4:");
         return 1;
     }
     cout << "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tPassed" << endl;

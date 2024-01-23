@@ -42,7 +42,6 @@ ListStack<T>::ListStack(){
 //Destroy all nodes in this ListStack to prevent memory leaks
 template <class T>
 ListStack<T>::~ListStack(){
-  std::cout<<"destructing list stack\n";
   while (!empty())
   {
     stack.removeStart();

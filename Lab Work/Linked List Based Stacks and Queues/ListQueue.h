@@ -42,7 +42,6 @@ ListQueue<T>::ListQueue(){
 //Destroy all nodes in this ListQueue to prevent memory leaks
 template <class T>
 ListQueue<T>::~ListQueue(){
-  std::cout<<"destructing list queue\n";
   while (!empty())
   {
     queue.removeStart();

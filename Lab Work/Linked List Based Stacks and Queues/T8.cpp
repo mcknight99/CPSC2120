@@ -14,8 +14,6 @@ int main()
         list1.insertStart(j);
     }
     list1.insertAt(3,0);
-    list1.print("list T8");
-
 
     // This can be an ofstream as well or any other ostream
     stringstream buffer;

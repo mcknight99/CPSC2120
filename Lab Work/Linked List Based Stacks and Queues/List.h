@@ -71,7 +71,7 @@ List<T>::List()
 template <class T>
 List<T>::~List()
 {
-  std::cout<<"destructing linked list\n";
+  //std::cout<<"destructing linked list\n";
   while (!empty())
   {
     removeStart();
@@ -125,13 +125,13 @@ void List<T>::insertStart(T value)
     start=newNode;
     start->next=nullptr;
     mySize++;
-    std::cout<<"inserted "<<value<<" at start\n";
+    //std::cout<<"inserted "<<value<<" at start\n";
   } else {
     Node<T>* newNode = new Node<T>(value);
     newNode->next = start;
     start=newNode;
     mySize++;
-    std::cout<<"inserted "<<value<<" at start\n";
+    //std::cout<<"inserted "<<value<<" at start\n";
   }
 }
 
@@ -144,7 +144,7 @@ void List<T>::insertEnd(T value)
     Node<T>* newNode = new Node<T>(value);
     start=newNode;
     mySize++;
-  std::cout<<"inserted " << value << " at end\n";
+    //std::cout<<"inserted " << value << " at end\n";
   } else {
     mySize++;
     Node<T>* newNode = new Node<T>(value);
@@ -153,7 +153,7 @@ void List<T>::insertEnd(T value)
       current=current->next;
     }
     current->next=newNode;
-  std::cout<<"inserted " << value << " at end\n";
+    //std::cout<<"inserted " << value << " at end\n";
   }
 }
 
@@ -170,7 +170,7 @@ void List<T>::insertAt(T value, int j)
   } else {
     // ex. size of 10, last index is 9. if j is 10, no such index exists
     Node<T>* newNode = new Node<T>(value);
-    std::cout<<"inserting "<<value<<" at "<<j<<std::endl;
+    //std::cout<<"inserting "<<value<<" at "<<j<<std::endl;
     mySize++;
       Node<T>* current = start;
       for(int i = 0; i<j-1; i++) { //-1 because inserting at index j will put the newNode after the current node without it
@@ -190,7 +190,7 @@ void List<T>::removeStart()
   if(!empty()) {
     mySize--;
     Node<T>* afterDel = start->next;
-    std::cout<<"removed start (" << start->value << ")\n";
+    //std::cout<<"removed start (" << start->value << ")\n";
     delete start;
     start=afterDel;
   }
@@ -202,7 +202,7 @@ template <class T>
 void List<T>::removeEnd()
 {
   if(mySize==1) { //doing this to be able to store backwards one node, and the start doesn't have a node before it
-  std::cout<<"removing end of one long list, ";
+    //std::cout<<"removing end of one long list, ";
     removeStart();
   } else if(!empty()) { //it's times like this that i'd like to use doubly linked lists
     mySize--;
@@ -210,7 +210,7 @@ void List<T>::removeEnd()
     while(current->next->next!=nullptr) {
       current=current->next;
     }
-    std::cout<<"removing end (" << current->next->value << ")\n";
+    //std::cout<<"removing end (" << current->next->value << ")\n";
     delete current->next;
     current->next=nullptr;
   }
@@ -285,7 +285,7 @@ T List<T>::getAt(int j)
 template <class T>
 int List<T>::find(T key)
 {
-  std::cout<<"finding "<<key<<std::endl;
+  //std::cout<<"finding "<<key<<std::endl;
   Node<T>* current = start;
   int checkIndex = 0;
   while(current->value!=key && current->next!=nullptr){
@@ -294,10 +294,10 @@ int List<T>::find(T key)
     
   }
   if(current->next==nullptr && current->value!=key) {
-    std::cout<<"didn't find it";
+    //std::cout<<"didn't find it\n";
     return -1;
   } else {
-    std::cout<<"found it at "<<checkIndex<<std::endl;
+    //std::cout<<"found it at "<<checkIndex<<std::endl;
     return checkIndex;
   }
 }
