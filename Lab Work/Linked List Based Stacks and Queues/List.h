@@ -71,6 +71,7 @@ List<T>::List()
 template <class T>
 List<T>::~List()
 {
+  std::cout<<"destructing linked list\n";
   while (!empty())
   {
     removeEnd();
@@ -120,14 +121,17 @@ template <class T>
 void List<T>::insertStart(T value)
 {
   if(mySize==0) {
-    start->value=value;
+    Node<T>* newNode = new Node<T>(value);
+    start=newNode;
     start->next=nullptr;
     mySize++;
+    std::cout<<"inserted "<<value<<" at start\n";
   } else {
     Node<T>* newNode = new Node<T>(value);
     newNode->next = start;
     start=newNode;
     mySize++;
+    std::cout<<"inserted "<<value<<" at start\n";
   }
 }
 
@@ -192,8 +196,10 @@ template <class T>
 void List<T>::removeEnd()
 {
   if(mySize==1) {
+  std::cout<<"removing end of one long list, ";
     removeStart();
-  } else if(!empty()) {
+  } else if(!empty()) { //it's times like this that i'd like to use doubly linked lists
+  std::cout<<"removing end\n";
     mySize--;
     Node<T>* current = start;
     while(current->next->next!=nullptr) {
@@ -270,13 +276,19 @@ T List<T>::getAt(int j)
 template <class T>
 int List<T>::find(T key)
 {
+  std::cout<<"finding "<<key<<std::endl;
   Node<T>* current = start;
   int checkIndex = 0;
-  int foundIndex = -1;
-  while(current->value!=key){
+  while(current->value!=key && current->next!=nullptr){
     checkIndex++;
     current = current->next;
-
+    
   }
-  return foundIndex;
+  if(current->next==nullptr && current->value!=key) {
+    std::cout<<"didn't find it";
+    return -1;
+  } else {
+    std::cout<<"found it at "<<checkIndex<<std::endl;
+    return checkIndex;
+  }
 }
