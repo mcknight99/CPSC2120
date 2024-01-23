@@ -1,5 +1,8 @@
 compile:
-	g++ List.h -c -Wall
-	g++ ListQueue.h -c -Wall
-	g++ ListStack.h -c -Wall
-	g++ Node.h -c -Wall
+	g++ T1.cpp -Wall -o "T1.exe"
+
+run:
+	.\T1.exe
+
+clean:
+	del *.exe

@@ -1,8 +1,8 @@
 /*
- * Name:
- * Date Submitted:
- * Lab Section:
- * Assignment Name:
+ * Name: Sam Pupke
+ * Date Submitted: Jan 30 2024
+ * Lab Section: 002
+ * Assignment Name: Lab 1: Linked List Based Stacks and Queues
  */
 
 #pragma once
