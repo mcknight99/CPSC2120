@@ -62,9 +62,9 @@ int main()
 
   for (int g=0; g<groupCount; g++)
   {
-    for (int i=0; i<groups.size(); i++)
+    for (size_t i=0; i<groups.size(); i++)
     {
-      for (int j=0; j<groups[i].size(); j++)
+      for (size_t j=0; j<groups[i].size(); j++)
       {
         if (groupTest[g][0] == groups[i][j])
         {
@@ -76,7 +76,7 @@ int main()
     count = 0;
     for (int s=0; s<sizeTest[g]; s++)
     {
-      for (int i=0; i<groups[groupNum].size(); i++)
+      for (size_t i=0; i<groups[groupNum].size(); i++)
       {
         if (groupTest[g][s] == groups[groupNum][i])
         {

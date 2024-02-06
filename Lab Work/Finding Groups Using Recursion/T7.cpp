@@ -8,11 +8,11 @@ using namespace std;
 int main()
 {
   bool correct = false;
-  int groupNum = 0;
+  //int groupNum = 0;
   int totalSize = 0;
 
   int groupCount = 10;
-  int sizeTest[] = {1, 3, 1, 1, 3, 1, 14, 8, 3, 5};
+  size_t sizeTest[] = {1, 3, 1, 1, 3, 1, 14, 8, 3, 5};
   bool groupTestPass[] = {false, false, false, false, false,
                           false, false, false, false, false};
 
@@ -23,7 +23,7 @@ int main()
 
   for (int g=0; g<groupCount; g++)
   {
-    for (int i=0; i<groups.size(); i++)
+    for (size_t i=0; i<groups.size(); i++)
     {
       if(sizeTest[g] == groups[i].size())
       {
@@ -38,7 +38,7 @@ int main()
     correct = correct && groupTestPass[g];
   }
 
-  for (int i=0; i<groups.size(); i++)
+  for (size_t i=0; i<groups.size(); i++)
   {
     totalSize += groups[i].size();
   }

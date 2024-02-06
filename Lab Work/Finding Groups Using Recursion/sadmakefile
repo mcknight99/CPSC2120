@@ -1,0 +1,31 @@
+# List of numbers for T#.cpp
+NUMBERS := 1 2 3 4 5
+
+# Compiler and flags
+CXX := g++
+CXXFLAGS := -std=c++11
+
+# Target for Grouping.cpp
+Grouping.o: Grouping.cpp
+	$(CXX) $(CXXFLAGS) -c $^ -o $@
+
+# Targets for T#.cpp files
+T%.exe: T%.cpp Grouping.o
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+# Target to compile all T#.cpp files
+all: Grouping.o $(foreach num, $(NUMBERS), T$(num).exe)
+
+# so apparently for loops are not windows compatible so this dream MIGHT be dead 
+# Target to run all T#.exe files
+run: all
+	@for %i in ($(NUMBERS));\
+	 do \
+		.\T%i.exe; \
+	done
+
+# Target to clean generated files
+clean:
+	rm -f Grouping.o T*.exe
+
+.PHONY: all run clean
