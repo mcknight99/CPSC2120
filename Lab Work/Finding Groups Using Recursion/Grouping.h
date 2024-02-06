@@ -1,8 +1,8 @@
 /*
- * Name:
- * Date Submitted:
- * Lab Section:
- * Assignment Name:
+ * Name: Sam Pupke
+ * Date Submitted: 12 Feb 2024
+ * Lab Section: 001
+ * Assignment Name: Lab 3: Finding Groups Using Recursion
  */
 
 #pragma once
