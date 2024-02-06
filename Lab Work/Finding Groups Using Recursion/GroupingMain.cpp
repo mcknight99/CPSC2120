@@ -13,19 +13,14 @@
 
 using namespace std;
 
-//Implement the (parameterized) constructor and findGroup functions below
+// Implement the (parameterized) constructor and findGroup functions below
 
-
-
-
-
-
-//Simple main function to test Grouping
-//Be sure to comment out main() before submitting
+// Simple main function to test Grouping
+// Be sure to comment out main() before submitting
 int main()
 {
     Grouping input1("input1.txt");
     input1.printGroups();
-    
+
     return 0;
 }
