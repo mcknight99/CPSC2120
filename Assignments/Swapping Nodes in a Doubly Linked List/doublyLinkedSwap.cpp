@@ -2,10 +2,12 @@
 
 // Implement the following function:
 // p and afterp are pointers to the nodes to be swapped.
-// @pre p->next->value != 0. the only way to test if the next 
-void swapWithNext(Node *p) {
+// @pre p->next->value != 0. the only way to test if the next
+void swapWithNext(Node *p)
+{
     // Check if p and its next node both contain values
-    if (p->value && p->next->value) {
+    if (p->value && p->next->value)
+    {
         // Update the next and prev pointers to swap the nodes
         Node *beforeP = p->prev;
         Node *afterP = p->next->next;
@@ -17,7 +19,8 @@ void swapWithNext(Node *p) {
         p->prev = p->next;
 
         p->next = afterP;
-        if (afterP) {
+        if (afterP)
+        {
             afterP->prev = p;
         }
     }
@@ -31,19 +34,19 @@ int main()
     Node * head = arrayToList(array, 10);
     printForwards(head);
     printBackwards(getTail(head));
-    
+
     cout << "Swap [0],[1]" << endl;
     Node * p = getNode(head, 0);
     swapWithNext(p);
     printForwards(head);
     printBackwards(getTail(head));
-    
+
     cout << "Swap [4],[5]" << endl;
     p = getNode(head, 4);
     swapWithNext(p);
     printForwards(head);
     printBackwards(getTail(head));
-    
+
     cout << "Swap [8],[9]" << endl;
     p = getNode(head, 8);
     swapWithNext(p);
@@ -52,11 +55,11 @@ int main()
 }
 */
 
-//Do not modify any functions below this line
-Node * arrayToList(int array[], int size)
+// Do not modify any functions below this line
+Node *arrayToList(int array[], int size)
 {
-    Node * head;
-    Node * p;
+    Node *head;
+    Node *p;
     int pos = 0;
     if (size > 0)
     {
@@ -85,10 +88,10 @@ Node * arrayToList(int array[], int size)
     return head;
 }
 
-//Return pointer to end of the list
-Node * getTail(Node * head)
+// Return pointer to end of the list
+Node *getTail(Node *head)
 {
-    Node * p = head;
+    Node *p = head;
     while (p->next != nullptr)
     {
         p = p->next;
@@ -96,12 +99,12 @@ Node * getTail(Node * head)
     return p;
 }
 
-//Return pointer to node with "index"
-//First node "index" 0, second node "index" 1, ...
-Node * getNode(Node * head, int index)
+// Return pointer to node with "index"
+// First node "index" 0, second node "index" 1, ...
+Node *getNode(Node *head, int index)
 {
     int pos = 0;
-    Node * p = head->next;
+    Node *p = head->next;
     if (pos == index)
     {
         return p;
@@ -121,10 +124,10 @@ Node * getNode(Node * head, int index)
     return p;
 }
 
-//Print list forwards from start
-void printForwards(Node * head)
+// Print list forwards from start
+void printForwards(Node *head)
 {
-    Node * p = head->next;
+    Node *p = head->next;
     while (p->next != nullptr)
     {
         cout << p->value << " ";
@@ -133,10 +136,10 @@ void printForwards(Node * head)
     cout << endl;
 }
 
-//Print list backwards from end
-void printBackwards(Node * tail)
+// Print list backwards from end
+void printBackwards(Node *tail)
 {
-    Node * p = tail->prev;
+    Node *p = tail->prev;
     while (p->prev != nullptr)
     {
         cout << p->value << " ";

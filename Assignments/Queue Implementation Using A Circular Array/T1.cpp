@@ -20,6 +20,7 @@ int main()
   queue.enqueue(10);
   queue.enqueue(15);
 
+  queue.printArrayQueue();
 
   // This can be an ofstream as well or any other ostream
   stringstream buffer;
