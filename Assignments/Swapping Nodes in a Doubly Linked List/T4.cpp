@@ -18,6 +18,7 @@ int main()
 
   swapWithNext(p);
 
+  printForwards(list);
 
   // This can be an ofstream as well or any other ostream
   stringstream buffer;

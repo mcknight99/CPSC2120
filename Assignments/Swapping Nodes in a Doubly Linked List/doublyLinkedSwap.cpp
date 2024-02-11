@@ -2,10 +2,28 @@
 
 // Implement the following function:
 // p and afterp are pointers to the nodes to be swapped.
-void swapWithNext(Node * p)
-{
+// @pre p->next->value != 0. the only way to test if the next 
+void swapWithNext(Node *p) {
+    // Check if p and its next node both contain values
+    if (p->value && p->next->value) {
+        // Update the next and prev pointers to swap the nodes
+        Node *beforeP = p->prev;
+        Node *afterP = p->next->next;
+
+        beforeP->next = p->next;
+        p->next->prev = beforeP;
+
+        p->next->next = p;
+        p->prev = p->next;
+
+        p->next = afterP;
+        if (afterP) {
+            afterP->prev = p;
+        }
+    }
 }
 
+/*
 //Be sure to comment out the main() function when submitting to codePost
 int main()
 {
@@ -32,6 +50,7 @@ int main()
     printForwards(head);
     printBackwards(getTail(head));
 }
+*/
 
 //Do not modify any functions below this line
 Node * arrayToList(int array[], int size)
