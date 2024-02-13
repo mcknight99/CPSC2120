@@ -22,3 +22,8 @@ https://chocolatey.org/install
 >choco install make 
 
 # Note: 'del' is used instead of 'rm' in makefiles for the Windows console. Non-Windows may have issues with 'del' for cleaning folders
+
+
+makemakefile.cpp is my solution to having to rewrite makefiles with nonlinear test file numbers. 
+It can be copied, compiled, and run in the directory for a makefile.
+It can be kept in the directory to use the "remake" command, or deleted after finishing.
