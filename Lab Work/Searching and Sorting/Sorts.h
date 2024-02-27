@@ -136,14 +136,13 @@ void quickSort(std::vector<T>& list, int low, int high) {
 // Wrapper function for ease of use
 template <class T>
 std::vector<T> quickSort(std::vector<T> list) {
-    int size = list.size();
-
-    if (size <= 1) {
+    
+    if (list.size() <= 1) {
         // Already sorted or empty vector
         return list;
     }
 
-    quickSort(list, 0, size - 1);
+    quickSort(list, 0, list.size() - 1);
 
     return list;
 }
