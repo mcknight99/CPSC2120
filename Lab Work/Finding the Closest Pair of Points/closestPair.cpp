@@ -5,6 +5,17 @@
  * Assignment Name: Finding the Closest Pair of Points
  */
 
+/*
+
+Part of this lab also involves figuring out a good choice for the value of b.
+Please include in a comment in your code a brief description of why you think your choice of b is a good one
+(this will count for 5 of the 10 manual grade points). Submit the file closestPair.cpp with the implemented closestPair() function.
+
+b needs to scale as the amount of points does. If b was just the numPoints, the complexity and time would drastically increase.
+Using a square root of numPoints scale allowed for a more efficient value for b than a constant or numPoints.
+
+*/
+
 #include <iostream>
 #include <iomanip>
 #include <fstream>
