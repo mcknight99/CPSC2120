@@ -9,13 +9,14 @@ int main()
     if (makefile.is_open())
     {
 
-        int numList[] = {1,2,3,5,7,9,13,15};
+        int numList[] = {1,2,6};
 
         // Write some content to the Makefile
         makefile << "compile:\n";
+        makefile << "\tg++ FILETOINCLUDE.cpp -c -o \"FILETOINCLUDE.o\" -Wall\n"; //repeat this as many times as needed for object files and add the .o to the T maker
         for (size_t i = 0; i < std::size(numList); i++)
         {
-            makefile << "\tg++ \"T" << numList[i] << ".cpp\" -Wall -o \"T" << numList[i] << ".exe\"\n";
+            makefile << "\tg++ \"T" << numList[i] << ".cpp\" -Wall -o \"T" << numList[i] << ".exe\" FILETOINCLUDE.o\n";
         }
         makefile << "\nrun:\n";
         for (size_t i = 0; i < std::size(numList); i++)
