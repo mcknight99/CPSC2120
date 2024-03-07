@@ -1,8 +1,8 @@
 /*
- * Name:
- * Date Submitted:
- * Lab Section:
- * Assignment Name:
+ * Name: Samuel Pupke
+ * Date Submitted: 4 March 2024
+ * Lab Section: 002
+ * Assignment Name: Spell Checker Using a Hash Table
  */
 
 #pragma once

@@ -14,9 +14,10 @@ int main()
         // Write some content to the Makefile
         makefile << "compile:\n";
             makefile << "\tg++ stringset.cpp -Wall -c -o \"stringset.o\"\n";
+            makefile << "\tg++ main.cpp -Wall -c -o \"main.o\"\n";
         for (size_t i = 0; i < std::size(numList); i++)
         {
-            makefile << "\tg++ \"T" << numList[i] << ".cpp\" -Wall stringset.o -o \"T" << numList[i] << ".exe\"\n";
+            makefile << "\tg++ \"T" << numList[i] << ".cpp\" -Wall stringset.o main.o -o \"T" << numList[i] << ".exe\"\n";
         }
         makefile << "\nrun:\n";
         for (size_t i = 0; i < std::size(numList); i++)

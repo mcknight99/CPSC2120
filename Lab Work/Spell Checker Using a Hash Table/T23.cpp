@@ -15,7 +15,7 @@ int main()
   loadStringset(words,"wordlist.txt");
   alternatives=spellcheck(words,"lake");
 
-  for (int i=0; i<alternatives.size(); ++i)
+  for (size_t i=0; i<alternatives.size(); ++i)
   {
     if(alternatives[i]=="bake" ||
       alternatives[i]=="cake" ||
