@@ -1,0 +1,25 @@
+An anagram is a word or phrase formed by rearranging the letters of a different word or phrase. 
+In this assignment you will be implementing a function that will find all single-word anagrams given a single word and a list of all words.
+
+In the starter code you will the starting source file anagram.cpp and the list of words wordlist.txt (same as lab 5). 
+You will need to implement the anagram() function which takes a string for the word to find anagrams of as the first 
+parameter and a vector of strings containing a list of all words as the second parameter. 
+The return value of anagram() will be a vector of strings containing all anagrams (including the parameter word if it is an actual word). 
+There is a main function that will test the anagram() function as well as an already-implemented function loadWordlist() 
+which will read in words from the specified file with the same format as in lab 5 (by string-type parameter) and return these words in a vector of strings.
+
+The anagram() function will take a word (string) and a wordlist of all words (vector of strings) 
+and builds a dictionary/map where the key is a specific amount of times each letter occurs in a word and 
+the associated value is a vector of strings containing all words using those letters (anagrams). 
+You may either modify the Stringset class from lab 5 to be a dictionary (holding a key:value pair as opposed to just a key) 
+or use the STL unordered_map structure. The main() function provided will test the anagram() function with a word the user 
+types in using the words stored from wordlist.txt in wordlist, for example if the user types in steak, 
+anagrams=anagram("steak",wordlist); will run and if implemented correctly the following contents of anagrams will be displayed:
+
+skate
+stake
+steak
+takes
+teaks
+
+Submit anagram.cpp with the implemented anagram() function. You are free to implement any helper functions in anagram.cpp.
