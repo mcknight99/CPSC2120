@@ -1,9 +1,6 @@
 #include <iostream>
 #include <fstream>
 
-// Idea to add: another list for files to include instead of manually replacing FILETOINCLIDE, 
-// having a list of strings that get compiled to .o and linked to the test files
-
 int main()
 {
     // Open the Makefile for writing
@@ -12,14 +9,14 @@ int main()
     if (makefile.is_open())
     {
 
-        int numList[] = {1,2,6};
+        int numList[] = {1,3,4,8,9,10,12,14,15,16,18};
 
         // Write some content to the Makefile
         makefile << "compile:\n";
-        makefile << "\tg++ FILETOINCLUDE.cpp -c -o \"FILETOINCLUDE.o\" -Wall\n"; //repeat this as many times as needed for object files and add the .o to the T maker
+        makefile << "\tg++ binarySearchTree.cpp -c -o \"binarySearchTree.o\" -Wall\n"; //repeat this as many times as needed for object files and add the .o to the T maker
         for (size_t i = 0; i < std::size(numList); i++)
         {
-            makefile << "\tg++ \"T" << numList[i] << ".cpp\" -Wall -o \"T" << numList[i] << ".exe\" FILETOINCLUDE.o\n";
+            makefile << "\tg++ \"T" << numList[i] << ".cpp\" -Wall -o \"T" << numList[i] << ".exe\" binarySearchTree.o\n";
         }
         makefile << "\nrun:\n";
         for (size_t i = 0; i < std::size(numList); i++)
