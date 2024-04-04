@@ -96,22 +96,71 @@ void split(Node *T, int r, Node **L, Node **R)
     fix_size(T);
 }
 
+// Merge two binary search trees rooted at L and R
+// Returns a pointer to the root of the merged tree
+Node *merge(Node *L, Node *R)
+{
+    // Base cases: If one of the trees is empty, return the other tree
+    if (L == nullptr)
+        return R;
+    if (R == nullptr)
+        return L;
+
+    // Choose the root of the merged tree based on the sizes of L and R
+    if (rand() % (L->size + R->size) < L->size) {
+        // If the randomly chosen number is less than the size of L,
+        // make L the root and merge its right subtree with R
+        L->right = merge(L->right, R);
+        fix_size(L); // Update the size of the merged tree
+        return L;    // Return the merged tree with L as the root
+    } else {
+        // Otherwise, make R the root and merge its left subtree with L
+        R->left = merge(L, R->left);
+        fix_size(R); // Update the size of the merged tree
+        return R;    // Return the merged tree with R as the root
+    }
+}
+
 // insert value v at rank r
 Node *insert_random(Node *T, int v, int r)
 {
-    if (T == nullptr) return new Node(v);
-    
-    int N = T->size + 1; // Number of nodes including the new one
-    int random_rank = rand() % N; // Random rank between 0 and N-1
-    
-    if (random_rank == 0) { // Insert at the root with probability 1/N
-        return insert(T, v, r);
-    } else if (random_rank <= r + 1) { // Random rank is in the left subtree
-        T->left = insert_random(T->left, v, r);
-    } else { // Random rank is in the right subtree
-        T->right = insert_random(T->right, v, r - T->left->size - 1);
+    // Base case: if the tree is empty, create a new node
+    if (T == nullptr)
+        return new Node(v);
+
+    // Calculate the size of the tree rooted at T
+    int treeSize = T->size + 1; // Adding 1 to account for the new node to be inserted
+
+    // Calculate the probability of inserting at the root
+    double probability = 1.0 / treeSize;
+
+    // Generate a random number between 0 and 1
+    double randNum = (double)rand() / RAND_MAX;
+
+    // If the random number is less than or equal to the probability,
+    // insert the new node at the root
+    if (randNum <= probability) {
+        // Split the tree at rank r to get left and right subtrees
+        Node *L = nullptr;
+        Node *R = nullptr;
+        split(T, r, &L, &R);
+
+        // Create a new node with value v as the root
+        Node *newRoot = new Node(v);
+
+        // Merge the left subtree, new root, and right subtree
+        return merge(merge(L, newRoot), R);
     }
+
+    // Otherwise, recursively insert the new node either in the left or right subtree
+    if (r <= (T->left ? T->left->size : 0))
+        T->left = insert_random(T->left, v, r);
+    else
+        T->right = insert_random(T->right, v, r - (T->left ? T->left->size : 0) - 1);
+
+    // Update the size of the tree rooted at T
     fix_size(T);
+
     return T;
 }
 
@@ -123,47 +172,49 @@ bool did_x_beat_y(int x, int y)
   if (x > y) return !did_x_beat_y(y,x);
   unsigned long long lx = x;
   unsigned long long ly = y;
-  return ((17 + 8321813 * lx + 1861 * ly) % 1299827) % 2 == 0;
+  return ((17 + 8321813 * lx + 1861 * ly) % 1299827) % 2 != 0;
 }
+
 
 // Return a BST containing a valid ordering of n teams
 Node *order_n_teams(int n)
 {
-    Node *T = nullptr;
+  Node *T = nullptr;
 
-    // start by inserting the first team
-    T = insert_random(T, 0, 0);
+  // start by inserting the first team
+  T = insert_random(T, 0, 0);
+  // now insert the other teams...
 
-    // now insert the other teams...
-    for (int i = 1; i < n; i++) {
-        // insert team i so the sequence encoded by the BST remains valid
-        if (did_x_beat_y(i, select(T, 0)->key)) // can we insert at beginning?
-            T = insert_random(T, i, 0);
-        else if (did_x_beat_y(select(T, T->size - 1)->key, i)) // can we insert at end?
-            T = insert_random(T, i, T->size);
-        else {
-            // Binary search to find the position to insert team i
-            int left = 0;
-            int right = T->size - 1;
-            int mid;
-            while (left <= right) {
-                mid = left + (right - left) / 2;
-                int x = select(T, mid)->key;
-                int y = select(T, mid + 1)->key;
-                if (did_x_beat_y(x, i) && did_x_beat_y(i, y)) {
-                    // Found the position to insert team i
-                    T = insert_random(T, i, mid + 1);
-                    break;
-                } else if (!did_x_beat_y(i, x)) {
-                    right = mid - 1;
-                } else {
-                    left = mid + 1;
-                }
-            }
+  for (int i=1; i<n; i++) {
+    // insert team i so the sequence encoded by the BST remains valid
+    if (did_x_beat_y(i, select(T,0)->key)) { // can we insert at beginning?
+      T = insert_random(T, i, 0);
+    } else if (did_x_beat_y(select(T,T->size-1)->key, i)) { // can we insert at end?
+	    T = insert_random(T, i, T->size);
+    } else {
+	    // 7 5 4 2 0 3 1 6    (when inserting team i=8)
+	    // W W W L L L W L
+      //Binary search to find the position to insert
+      int lower = 0;
+      int upper = T->size-1;
+
+      while (lower != upper-1) {
+        int mid = (lower + upper)/2;
+        if (did_x_beat_y(select(T,mid)->key, i)) {
+          lower = mid;
         }
+        else {
+          upper = mid;
+        }
+      }
+      T = insert_random(T, i, upper);
+      
     }
-    return T;
+  }
+  return T;
 }
+
+
 
 void printVector(vector<int> v)
 {
@@ -217,7 +268,7 @@ int main(void)
       Node *y = select(S, i+1);
       if (!did_x_beat_y(x->key, y->key)) {
         cout << "Invalid sequence: team " << x->key << " (position " << i <<
-	              ") lost to team " << y->key << " (position " << i+1 << ")\n";
+	              ") lowerst to team " << y->key << " (position " << i+1 << ")\n";
       }
     }
   }  

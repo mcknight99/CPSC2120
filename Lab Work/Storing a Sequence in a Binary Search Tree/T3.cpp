@@ -23,7 +23,7 @@ int main()
         if (inorder[i] != test2[i])
         {
             std::cout << "Mismatch at position " << i << ": expected/correct value " << test2[i] << ", actual value when testing " << inorder[i] << ".\n";
-            //return 0;
+            return 1;
         }
     }
     std::cout << "Passed" << std::endl;
