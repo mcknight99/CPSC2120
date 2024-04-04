@@ -11,14 +11,14 @@ int main()
     if (S == nullptr)
     {
         std::cout << "S = order_n_teams(100000): S expected to be a valid pointer, S is null (S == nullptr).\n";
-        //return 0;
+        return 1;
     }
     //ASSERT_EQ(S->size, N);
     if (S->size != N)
     {
         std::cout << "expected/correct value for S->size is 100000, actual value when testing " << S->size << ".\n";
-        //return 0;
+        return 1;
     }
     std::cout << "Passed" << std::endl;
-    //return 0;
+    return 0;
 }

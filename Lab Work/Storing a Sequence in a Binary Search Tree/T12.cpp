@@ -14,9 +14,9 @@ int main()
     if (did_x_beat_y(x->key, y->key) != true)
     {
       std::cout << "Team x: " << i << ", Team y: " << i+1 << ", expected/correct value for did_x_beat_y(x->key, y->key) is true, actual value when testing is false.\n";
-      //return 0;
+      return 1;
     }
   }
   std::cout << "Passed" << std::endl;
-  //return 0;
+  return 0;
 }
