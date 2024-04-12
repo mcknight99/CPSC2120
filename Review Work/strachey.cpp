@@ -7,28 +7,20 @@ using namespace std;
 // To shuffle:
 // https://en.wikipedia.org/wiki/Magic_square#Transformations_that_preserve_the_magic_property
 
-// k is the safety precursor to making even sized magic squares.
-// even square dimensions are determined by 4k+2
-//@pre k >= 1
-const unsigned long long k = 1;
 // j is the safety precursor for stepping in a strachey alg square
 //@pre j>=0
-const unsigned long long j = 1;
+const int j = 1;
 
-// n is the safety precursor to making odd sized magic squares.
-// odd square dimensions are determined by n
-//@pre n >= 3 && n % 2 == 1
-const unsigned long long n = 3;
 // s is the safety precursor for odd sized magic square starting values
 // any nonzero positive integer is allowed
 //@pre s >= 1
-const unsigned long long s = 1;
+const int s = 1;
 // d is the safety precursor for stepping in a siamese square
 //@pre d>=0
-const unsigned long long d = j;
+const int d = j;
 
 // Function to print the magic square and its row, column, and diagonal sums
-void printMagicSquare(const vector<vector<unsigned long long>> &magicSquare, unsigned long long size)
+void printMagicSquare(const vector<vector<unsigned long long>> &magicSquare, int size)
 {
     vector<unsigned long long> rowSum(size, 0);
     vector<unsigned long long> colSum(size, 0);
@@ -36,9 +28,9 @@ void printMagicSquare(const vector<vector<unsigned long long>> &magicSquare, uns
     unsigned long long antiDiagSum = 0;
 
     cout << "Magic Square:" << endl;
-    for (unsigned long long i = 0; i < size; ++i)
+    for (int i = 0; i < size; ++i)
     {
-        for (unsigned long long j = 0; j < size; ++j)
+        for (int j = 0; j < size; ++j)
         {
             cout << magicSquare[i][j] << "\t";
             rowSum[i] += magicSquare[i][j];
@@ -56,12 +48,12 @@ void printMagicSquare(const vector<vector<unsigned long long>> &magicSquare, uns
     }
 
     // Print column sums
-    for (unsigned long long j = 0; j < size; ++j)
+    for (int j = 0; j < size; ++j)
     {
         cout << "--------";
     }
     cout << endl;
-    for (unsigned long long j = 0; j < size; ++j)
+    for (int j = 0; j < size; ++j)
     {
         cout << colSum[j] << "\t";
     }
@@ -69,21 +61,21 @@ void printMagicSquare(const vector<vector<unsigned long long>> &magicSquare, uns
 }
 
 // Function to generate Siamese magic square of odd order
-vector<vector<unsigned long long>> generateSiameseMagicSquare(unsigned long long startNum, unsigned long long size, unsigned long long step)
+vector<vector<unsigned long long>> generateSiameseMagicSquare(int startNum, int size, int step)
 {
     vector<vector<unsigned long long>> siameseMagicSquare(size, vector<unsigned long long>(size, 0));
 
-    unsigned long long num = startNum;
-    unsigned long long row = 0;
-    unsigned long long col = size / 2;
+    int num = startNum;
+    int row = 0;
+    int col = size / 2;
 
-    for (unsigned long long i = 0; i < size * size; ++i)
+    for (int i = 0; i < size * size; ++i)
     {
         siameseMagicSquare[row][col] = num;
 
         // Move diagonally up and right
-        unsigned long long nextRow = (row - 1 + size) % size;
-        unsigned long long nextCol = (col + 1) % size;
+        int nextRow = (row - 1 + size) % size;
+        int nextCol = (col + 1) % size;
 
         // Check if the next position is filled
         if (siameseMagicSquare[nextRow][nextCol] != 0)
@@ -105,7 +97,7 @@ vector<vector<unsigned long long>> generateSiameseMagicSquare(unsigned long long
 }
 
 // Function to create the Strachey magic square
-vector<vector<unsigned long long>> generateStracheyMagicSquare(unsigned long long size, unsigned long long step)
+vector<vector<unsigned long long>> generateStracheyMagicSquare(int size, int step)
 {
     // Step 1: Divide the grid into 4 quarters
     vector<vector<unsigned long long>> magicSquare(size, vector<unsigned long long>(size, 0));
@@ -118,18 +110,18 @@ vector<vector<unsigned long long>> generateStracheyMagicSquare(unsigned long lon
 
     // k is now equal to (size - 2) / 4
     // Step 3: Exchange the leftmost k columns in sub-square A with the corresponding columns of sub-square D.
-    for (unsigned long long i = 0; i < size / 2; i++)
+    for (int i = 0; i < size / 2; ++i)
     {
-        for (unsigned long long j = 0; j < (size - 2) / 4; j++)
+        for (int j = 0; j < (size - 2) / 4; ++j)
         {
             swap(subSquareA[i][j], subSquareD[i][j]);
         }
     }
 
     // Step 4: Exchange the rightmost k - 1 columns in sub-square C with the corresponding columns of sub-square B.
-    for (unsigned long long i = 0; i < size / 2; i++)
+    for (int i = 0; i < size / 2; ++i)
     {
-        for (unsigned long long j = size / 2 - ((size - 2) / 4) + 1; j < size / 2; j++)
+        for (int j = size / 2 - ((size - 2) / 4) + 1; j < size / 2; ++j)
         {
             swap(subSquareB[i][j], subSquareC[i][j]);
         }
@@ -140,9 +132,9 @@ vector<vector<unsigned long long>> generateStracheyMagicSquare(unsigned long lon
     swap(subSquareA[size / 4][size / 4], subSquareD[size / 4][size / 4]);
 
     // Combine the sub-squares into the final magic square
-    for (unsigned long long i = 0; i < size / 2; ++i)
+    for (int i = 0; i < size / 2; ++i)
     {
-        for (unsigned long long j = 0; j < size / 2; ++j)
+        for (int j = 0; j < size / 2; ++j)
         {
             // Sub-square A (top left)
             magicSquare[i][j] = subSquareA[i][j];
@@ -161,10 +153,10 @@ vector<vector<unsigned long long>> generateStracheyMagicSquare(unsigned long lon
 vector<vector<unsigned long long>> generateDoublyEvenMagicSquare(unsigned long long size)
 {
     vector<vector<unsigned long long>> magicSquare(size, vector<unsigned long long>(size, 0));
-    unsigned long long iterator = 1;
-    for (unsigned long long i = 0; i < size; ++i)
+    int iterator = 1;
+    for (int i = 0; i < size; ++i)
     {
-        for (unsigned long long j = 0; j < size; ++j, ++iterator)
+        for (int j = 0; j < size; ++j, ++iterator)
         {
             magicSquare[i][j] = (((i + 1) / 2) + ((j + 1) / 2) + 1) % 2 == 1 ? iterator : (size * size) + 1 - iterator;
             /*
@@ -193,11 +185,11 @@ void writeMagicSquareToCSV(const std::vector<std::vector<unsigned long long>> &s
         return;
     }
 
-    unsigned long long n = square.size();
-    for (unsigned long long i = 0; i < n; ++i)
+    int n = square.size();
+    for (int i = 0; i < n; ++i)
     {
         unsigned long long rowSum = 0;
-        for (unsigned long long j = 0; j < n; ++j)
+        for (int j = 0; j < n; ++j)
         {
             rowSum += square[i][j];
             file << square[i][j] << ",";
@@ -205,15 +197,16 @@ void writeMagicSquareToCSV(const std::vector<std::vector<unsigned long long>> &s
         file << "," << rowSum << std::endl;
     }
 
-    for(unsigned long long j = 0; j<=n; j++) {
-        file<<",";
+    for (int j = 0; j <= n; j++)
+    {
+        file << ",";
     }
-    file<<endl;
+    file << endl;
 
-    for (unsigned long long j = 0; j < n; ++j)
+    for (int j = 0; j < n; ++j)
     {
         unsigned long long colSum = 0;
-        for (unsigned long long i = 0; i < n; ++i)
+        for (int i = 0; i < n; ++i)
         {
             colSum += square[i][j];
         }
@@ -223,22 +216,25 @@ void writeMagicSquareToCSV(const std::vector<std::vector<unsigned long long>> &s
 
     unsigned long long diagonalSum = 0;
     unsigned long long antiDiagonalSum = 0;
-    for (unsigned long long i = 0; i < n; ++i)
+    for (int i = 0; i < n; ++i)
     {
         diagonalSum += square[i][i];
         antiDiagonalSum += square[i][n - i - 1];
     }
-    file << ",\\" <<diagonalSum << " /" << antiDiagonalSum << std::endl;
+    file << ",\\" << diagonalSum << " /" << antiDiagonalSum << std::endl;
 
-    cout << "Written magic square to " << filename << endl;
+    cout << "Written magic square to " << filename;
+    cout << ". M = " << diagonalSum << endl;
     file.close();
 }
 
 int main()
 {
-    unsigned long long size = 0;
-    cout << "What size magic square would you like?\n";
+
+    int size = 0;
+    cout << "What size magic square would you like? (Clock starts after input)\n";
     cin >> size;
+    clock_t tStart = clock();
 
     vector<vector<unsigned long long>> magicSquare;
     if (size % 2 == 1)
@@ -253,19 +249,12 @@ int main()
     { // doubly even
         magicSquare = generateDoublyEvenMagicSquare(size);
     }
-    //printMagicSquare(magicSquare, size);
+    clock_t tGen = clock();
+    printf("Time to generate: %.2fms (%.2fs)\n", (double)(tGen - tStart), (double)(tGen - tStart) / CLOCKS_PER_SEC);
+    // printMagicSquare(magicSquare, size);
     writeMagicSquareToCSV(magicSquare, "test.csv");
+    printf("Time to write: %.2fms (%.2fs)\n", (double)(clock() - tGen), (double)(clock() - tGen) / CLOCKS_PER_SEC);
 
-    /*
-        cout << "Strachey size: " << 4 * k + 2 << endl;
-        vector<vector<unsigned long long>> magicSquare = generateStracheyMagicSquare((4 * k) + 2, j);
-        vector<vector<unsigned long long>> magicSiamese = generateSiameseMagicSquare(s, n, d);
-
-        cout << "The generated magic square:" << endl;
-        printMagicSquare(magicSquare, (4 * k) + 2);
-
-        cout << "The generated siamese square:" << endl;
-        printMagicSquare(magicSiamese, n);
-        */
+    printf("System total runtime: %.2fms (%.2fs)\n", (double)(clock() - tStart), (double)(clock() - tStart) / CLOCKS_PER_SEC);
     return 0;
 }
