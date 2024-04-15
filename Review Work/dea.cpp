@@ -35,7 +35,7 @@ int main() {
             } else {
                 cout<<RED;
             }
-            cout<<test[i][j];
+            cout<<test[i][j]<<" ";
             cout<<RESET;
         }
         cout<<endl;

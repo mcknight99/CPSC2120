@@ -17,7 +17,7 @@ const int j = 1;
 const int s = 1;
 // d is the safety precursor for stepping in a siamese square
 //@pre d>=0
-const int d = j;
+const int d = 1;
 
 // Function to print the magic square and its row, column, and diagonal sums
 void printMagicSquare(const vector<vector<unsigned long long>> &magicSquare, int size)
@@ -251,7 +251,7 @@ int main()
     }
     clock_t tGen = clock();
     printf("Time to generate: %.2fms (%.2fs)\n", (double)(tGen - tStart), (double)(tGen - tStart) / CLOCKS_PER_SEC);
-    // printMagicSquare(magicSquare, size);
+    printMagicSquare(magicSquare, size);
     writeMagicSquareToCSV(magicSquare, "test.csv");
     printf("Time to write: %.2fms (%.2fs)\n", (double)(clock() - tGen), (double)(clock() - tGen) / CLOCKS_PER_SEC);
 
