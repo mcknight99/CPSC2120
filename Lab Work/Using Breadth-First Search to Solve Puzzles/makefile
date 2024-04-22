@@ -7,4 +7,4 @@ run:
 	./wolfGoatCabbage
 
 clean:
-	del waterJugs wolfGoatCabbage
+	del *.exe
