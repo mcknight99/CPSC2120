@@ -9,6 +9,7 @@
 #include <vector>
 #include <map>
 #include <queue>
+#include <climits>
 using namespace std;
 
 // Reflects what each node represents...
@@ -82,10 +83,6 @@ void build_graph()
     {
       // Add the current state to the graph
       state current_state = make_pair(a, b);
-      nbrs[current_state] = vector<state>();   // Initialize neighbors for this state
-      visited[current_state] = false;          // Mark as not visited
-      pred[current_state] = make_pair(-1, -1); // Predecessor set to (-1, -1) initially
-      dist[current_state] = INT_MAX;           // Distance set to infinity initially
 
       // Generate possible transitions from the current state
       for (int action = 0; action < 6; ++action)
@@ -142,7 +139,7 @@ void build_graph()
   }
 }
 
-/*
+
 int main(void)
 {
   build_graph();
@@ -159,4 +156,3 @@ int main(void)
 
   return 0;
 }
-*/

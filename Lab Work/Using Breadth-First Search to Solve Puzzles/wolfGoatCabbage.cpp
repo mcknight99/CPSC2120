@@ -144,7 +144,7 @@ void build_graph()
   }
 }
 
-/*
+
 int main(void)
 {
   build_graph();
@@ -159,4 +159,3 @@ int main(void)
 
   return 0;
 }
-*/
