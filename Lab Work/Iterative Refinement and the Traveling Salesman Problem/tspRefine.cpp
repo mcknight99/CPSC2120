@@ -57,14 +57,14 @@ bool refine(double &len)
   bool improved = false;
   for (int i = 0; i < N; ++i)
   {
-    for (int j = i + 2; j < N; ++j)
+    for (int j = i + 1; j < N - 1; ++j)
     {
-      double old_dist = dist(i, (i + 1) % N) + dist(j, (j + 1) % N);
-      double new_dist = dist(i, j) + dist((i + 1) % N, (j + 1) % N);
-      if (new_dist < old_dist - 0.0001)
+      double old_dist = dist(i, i - 1) + dist(j, j + 1);
+      double new_dist = dist(j, i - 1) + dist(i, j + 1);
+      if (old_dist - new_dist > 0.0001)
       {
         // Swap edges for their diagonals
-        reverse(P.begin() + (i + 1) % N, P.begin() + j);
+        reverse(P.begin() + i, P.begin() + j + 1);
         len -= (old_dist - new_dist);
         improved = true;
       }
@@ -92,15 +92,49 @@ double tspRefine()
   // Finally, if final tour length < best_len replace best with the
   // current tour (P) and update best_len
 
+  int tourNums = 14;
+  double totalDistance = 0;
+
+  for (int i = 0; i < tourNums; ++i)
+  {
+    totalDistance = 0;
+
+    // random swaps to avoid getting stuck at poor locally-optimal solutions
+    for (size_t j = 0; j < P.size(); ++j)
+    {
+      swap(P[i], P[rand() % (i + 1)]);
+    }
+
+    // finds the total distance of the random new path
+    for (int j = 0; j < N; ++j)
+    {
+      totalDistance += dist(j, j + 1);
+    }
+
+    // iterates until there is a refined path
+    while (refine(totalDistance))
+      ; // also this is super cursed and i love it
+
+    // check if there was an improvement
+    if (totalDistance < best_len)
+    {
+      best = P;
+      best_len = totalDistance;
+    }
+  }
+
   for (auto p : best)
     cout << cityNames[cities[p]] << endl;
   cout << "\nTotal length: " << best_len << "\n";
   return best_len;
 }
 
+/*
 int main(void)
 {
   double best_len = 999999999;
   best_len = tspRefine();
+  cout<<"final best len"<<best_len<<"\n";
   return 0;
 }
+*/

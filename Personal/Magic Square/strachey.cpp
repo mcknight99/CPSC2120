@@ -197,7 +197,7 @@ void writeMagicSquareToCSV(const std::vector<std::vector<unsigned long long>> &s
         file << "," << rowSum << std::endl;
     }
 
-    for (int j = 0; j <= n; j++)
+    for (int j = 0; j <= n; ++j)
     {
         file << ",";
     }

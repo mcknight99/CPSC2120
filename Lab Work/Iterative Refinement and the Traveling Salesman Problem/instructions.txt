@@ -1,11 +1,22 @@
-In this lab exercise, we will use iterative refinement to build a reasonable good solution for the traveling salesman problem (which is an NP-hard problem, so finding an guaranteed-optimal solution is believed to be computationally intractable for a non-trivial problem size). In the starter code you will find a file (cities.txt) with 14 points on a 2D plane containing pairs of real number (fractional) values on each line in the file (one line for each point). To help visualize the TSP (Traveling Salesman Problem) tour, these 14 points represent actual cities using (latitude, longitude) to give their approximate locations on a 2D plane as opposed to arbitrary (x, y) values.
+In this lab exercise, we will use iterative refinement to build a reasonable good solution for the traveling salesman problem 
+(which is an NP-hard problem, so finding an guaranteed-optimal solution is believed to be computationally intractable for a non-trivial problem size). 
+In the starter code you will find a file (cities.txt) with 14 points on a 2D plane containing pairs of real number (fractional) values on each line in the file 
+(one line for each point). To help visualize the TSP (Traveling Salesman Problem) tour, these 14 points represent actual cities using (latitude, longitude) 
+to give their approximate locations on a 2D plane as opposed to arbitrary (x, y) values.
 
-You will construct your tour using iterative refinement, starting with a random tour that you get by taking a random permutation of an array containing the 14 points. There are several ways to randomly permute the contents of an array A[0 ... N−1]; the easiest is probably to loop through the array and swap each element with randomly-chosen preceding element.
+You will construct your tour using iterative refinement, starting with a random tour that you get by taking a random permutation of an array containing the 14 points. 
+There are several ways to randomly permute the contents of an array A[0 ... N−1]; the easiest is probably to loop through the array and swap each element with 
+randomly-chosen preceding element.
 
-To refine your tour, you will look at all tours in a local neighborhood obtained by picking two edges in the tour and replacing them with their corresponding “diagonals”, as shown in below:
+To refine your tour, you will look at all tours in a local neighborhood obtained by picking two edges in the tour and replacing them with their 
+corresponding “diagonals”, as shown in below:
 
-Lab11_swapEdges.png
+Observe that, in the array representing the tour, this operation of swapping two edge for their diagonals corresponds to the reversal of a 
+contiguous subarray in our array of cities. In the example above, the part of the tour that visited cities 3, 4, 5, 6 is now reversed, 
+visiting the same cities in the order 6,5,4,3. In terms of the entire array of all cities, we have changed 1, 2, 3, 4, 5, 6, 7, 8, 9 
+into 1, 2, 6, 5, 4, 3, 7, 8, 9, having reversed the appropriate subarray.
 
-Observe that, in the array representing the tour, this operation of swapping two edge for their diagonals corresponds to the reversal of a contiguous subarray in our array of cities. In the example above, the part of the tour that visited cities 3, 4, 5, 6 is now reversed, visiting the same cities in the order 6,5,4,3. In terms of the entire array of all cities, we have changed 1, 2, 3, 4, 5, 6, 7, 8, 9 into 1, 2, 6, 5, 4, 3, 7, 8, 9, having reversed the appropriate subarray.
-
-With 14 cities (and hence 14 edges in the tour), you will have 14C2 = 14(13)/2 neighboring solutions to generate and check. When you find a better neighboring solution, you can either move to this solution immediately, or you can continue searching the entire neighborhood, moving afterward to the best neighboring solution you have found. You should continue refining the solution until it becomes locally optimal. Repeat this entire process from multiple random initial tours to alleviate the problem of getting stuck at poor locally-optimal solutions.
+With 14 cities (and hence 14 edges in the tour), you will have 14C2 = 14(13)/2 neighboring solutions to generate and check. 
+When you find a better neighboring solution, you can either move to this solution immediately, or you can continue searching the entire neighborhood, 
+moving afterward to the best neighboring solution you have found. You should continue refining the solution until it becomes locally optimal. 
+Repeat this entire process from multiple random initial tours to alleviate the problem of getting stuck at poor locally-optimal solutions.

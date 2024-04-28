@@ -16,10 +16,10 @@ int main()
 
         // Write some content to the Makefile
         makefile << "compile:\n";
-        makefile << "\tg++ FILETOINCLUDE.cpp -c -o \"FILETOINCLUDE.o\" -Wall\n"; //repeat this as many times as needed for object files and add the .o to the T maker
+        makefile << "\tg++ tspRefine.cpp -c -o \"tspRefine.o\" -Wall\n"; //repeat this as many times as needed for object files and add the .o to the T maker
         for (size_t i = 0; i < std::size(numList); i++)
         {
-            makefile << "\tg++ \"T" << numList[i] << ".cpp\" -Wall -o \"T" << numList[i] << ".exe\" FILETOINCLUDE.o\n";
+            makefile << "\tg++ \"T" << numList[i] << ".cpp\" -Wall -o \"T" << numList[i] << ".exe\" tspRefine.o\n";
         }
         makefile << "\nrun:\n";
         for (size_t i = 0; i < std::size(numList); i++)

@@ -14,35 +14,12 @@ unordered_map<string, vector<string>> adj; // Adjacency list for the graph
 
 unordered_map<string, bool> visited;
 unordered_map<string, string> pred;
+unordered_map<string, int> dist;
+unordered_map<string, vector<string>> nbrs;
 queue<string> q;
 
-// Implement breadth-first search, refer to Lab 10
-
-void buildGraph()
-{
-  // Build adjacency list
-  for (size_t i = 0; i < V.size(); ++i)
-  {
-    for (int j = 0; j < 5; ++j)
-    {
-      string temp = V[i];
-      for (char c = 'a'; c <= 'z'; ++c)
-      {
-        if (c != temp[j])
-        {
-          temp[j] = c;
-          if (find(V.begin(), V.end(), temp) != V.end())
-          {
-            adj[V[i]].push_back(temp);
-          }
-        }
-      }
-    }
-  }
-}
-
 void readWordList()
-{ 
+{
   ifstream file("wordlist05.txt");
   if (!file.is_open())
   {
@@ -57,43 +34,70 @@ void readWordList()
   file.close();
 }
 
-void wordLadder(string s, string t, int &steps, vector<string> &p)
+void build_graph(void)
 {
-  readWordList();
-  buildGraph();
-  // Perform breadth-first search
-  q.push(s);
-  visited[s] = true;
-  pred[s] = "";
-
-  while (!q.empty())
+  for (string word : V)
   {
-    string u = q.front();
-    q.pop();
-
-    if (u == t)
+    for (size_t j = 0; j < word.length(); ++j)
     {
-      // Reconstruct the path
-      while (u != "")
+      for (char letter = 'a'; letter <= 'z'; letter++)
       {
-        p.push_back(u);
-        u = pred[u];
-      }
-      steps = p.size() - 1;
-      reverse(p.begin(), p.end());
-      return;
-    }
-
-    for (const auto &v : adj[u])
-    {
-      if (!visited[v])
-      {
-        visited[v] = true;
-        pred[v] = u;
-        q.push(v);
+        if (letter != word[j])
+        {
+          string newWord = word;
+          newWord[j] = letter;
+          nbrs[word].push_back(newWord);
+        }
       }
     }
   }
+}
+
+int path_finder(string start, string end, vector<string> &path)
+{
+  // avoid segfault when no path exists
+  if (pred.find(end) == pred.end())
+    return 0;
+  if (start.compare(end) != 0)
+  {
+    int step = 1 + path_finder(start, pred[end], path);
+    path.push_back(end);
+    return step;
+  }
+  else
+  {
+    path.push_back(end);
+    return 0;
+  }
+}
+
+// Implement breadth-first search, refer to Lab 10
+
+void wordLadder(string s, string t, int &steps, vector<string> &p)
+{
+  readWordList();
+  build_graph();
+  // Implement this function
+  queue<string> to_visit;
+  to_visit.push(s);
+  visited[s] = true;
+  dist[s] = 0;
+
+  while (!to_visit.empty())
+  {
+    string curnode = to_visit.front();
+    to_visit.pop();
+    for (string n : nbrs[curnode])
+      if (!visited[n])
+      {
+        pred[n] = curnode;
+        dist[n] = 1 + dist[curnode];
+        visited[n] = true;
+        to_visit.push(n);
+      }
+  }
+
+  steps = path_finder(s, t, p);
 }
 
 /*
