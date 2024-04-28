@@ -1,0 +1,23 @@
+A word ladder is a puzzle that begins with two words and to solve the puzzle one must find a chain of other words to link the two, in which two adjacent words (that is, words in successive steps) differ by one letter.
+
+For example, the following are the seven shortest solutions to the word ladder puzzle between words "cold" and "warm", using words from Collins Scrabble Words.
+
+    COLD → CORD → CARD → WARD → WARM 
+
+    COLD → CORD → CORM → WORM → WARM 
+
+    COLD → CORD → WORD → WARD → WARM 
+
+    COLD → CORD → WORD → WORM → WARM 
+
+    COLD → WOLD → WALD → WARD → WARM 
+
+    COLD → WOLD → WORD → WARD → WARM 
+
+    COLD → WOLD → WORD → WORM → WARM 
+
+For this assignment you will be implementing a function, wordLadder(), to find the shortest solution (in number of steps) for 5-letter words specifically. 5-letter words are of particular interest since some solutions may be quite long yet most pairs of 5-letter words have a word ladder solution. In the starter code you are provided with wordlist05.txt containing all the 5-letter words from wordlist.txt (previously used in the anagram assignment and the spell checker lab).
+
+In order to find the solution with the shortest path between two words the wordLadder() function will need to read in a file with a list of words to generate a graph with. Naturally each node will be a different word (string value). The neighboring nodes in the graph are all words that differ in exactly one position. To find the shortest path from the starting word to the ending word, breadth-first search should be used. The test cases will be run assuming that the set of words to be used are those contained in wordlist05.txt so be sure that the wordLadder() function opens and reads from this file. Additionally since there nearly 8,500 such words, unordered_maps (hash tables) should be used for keeping track of the neighbors / predecessors / distance of the nodes when preforming the breadth-first search since these have O(1) time for insert/find. The solution must be found within 10 seconds in order for the test cases to pass.
+
+In the starter code, besides wordlist05.txt, starting code is provided in wordLadder.cpp which you will modify with the implemented wordLadder() function and submit. wordLadder() takes 4 parameters, the first two, are the strings for the starting (source) word and ending (target) word. The remaining two parameters are reference parameters: the third is the number of steps (integer), this must be set to the length of the shortest solution and the fourth is the sequence of words in the solution from start to end (vector<string>). Since there could be multiple solutions, different implementations may produce a different sequence of the words for the solution (as seen above with cold->warm) depending on how the adjacency list (neighbors for each node) is built and how the breadth-first search is implemented; as a result the test cases will only check that the minimum number of steps is correct. The main() function has code that you can use to check the solution that wordLadder() generates but you must implement wordLadder() and any other helper functions including breadth-first search. You can refer to Lab 10 when implementing breadth-first search.
