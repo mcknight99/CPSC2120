@@ -61,6 +61,8 @@
         "sstream": "cpp",
         "fstream": "cpp",
         "bitset": "cpp",
-        "xhash": "cpp"
+        "xhash": "cpp",
+        "list": "cpp",
+        "unordered_set": "cpp"
     }
 }
