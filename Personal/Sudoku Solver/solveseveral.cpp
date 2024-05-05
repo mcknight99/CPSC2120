@@ -32,7 +32,6 @@ void printBoard(const vector<vector<int>>& board) {
 
 // Function to solve the Sudoku puzzle
 bool solveSudoku(vector<vector<int>>& board) {
-    bool finished = true;
     for (int row = 0; row < 9; ++row) {
         for (int col = 0; col < 9; ++col) {
             // Find an empty cell
@@ -45,8 +44,6 @@ bool solveSudoku(vector<vector<int>>& board) {
                         board[row][col] = num;
                         // Recursively solve the rest of the puzzle
                         if (solveSudoku(board)) {
-                            // If a solution is found, set finished to false to keep finding more
-                            finished = false;
                             // Print the solution
                             cout << "Solution:\n";
                             printBoard(board);
@@ -65,8 +62,7 @@ bool solveSudoku(vector<vector<int>>& board) {
         }
     }
     // Return true if *a* solution was found recursively 
-    // Return false if no solutions were found 
-    return finished; 
+    return true; 
 }
 
 
