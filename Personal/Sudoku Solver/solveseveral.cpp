@@ -109,24 +109,25 @@ int main()
 {
     cout << "Verbose output will show all solutions found, not just the first one.\n";
     cout << "Verbose output will take long to run as it has to check all valid cases.\n";
-    cout << "Would you like to see verbose output? (y/n): ";
+    cout << "Would you like to see verbose output? (y/n, default n): ";
     char response;
     cin >> response;
-    if (response == 'y')
+    if (response == 'y' || response == 'Y')
     {
         verbose = true;
     }
 
     vector<vector<vector<int>>> boardList = {
-        {{4, 0, 0, 0, 3, 1, 0, 0, 9},
-         {3, 2, 0, 0, 0, 5, 6, 0, 8},
-         {0, 5, 1, 8, 0, 6, 2, 0, 0},
-         {8, 0, 0, 5, 0, 0, 1, 9, 0},
-         {5, 0, 2, 0, 8, 0, 0, 0, 0},
-         {1, 6, 0, 3, 2, 9, 5, 0, 7},
-         {0, 4, 9, 6, 0, 0, 0, 2, 0},
-         {2, 1, 8, 0, 5, 0, 0, 0, 4},
-         {6, 0, 5, 4, 0, 2, 8, 0, 1}}, // the one that started it all; my newspaper sudoku
+        {
+            {4, 0, 0, 0, 3, 1, 0, 0, 9},
+            {3, 2, 0, 0, 0, 5, 6, 0, 8},
+            {0, 5, 1, 8, 0, 6, 2, 0, 0},
+            {8, 0, 0, 5, 0, 0, 1, 9, 0},
+            {5, 0, 2, 0, 8, 0, 0, 0, 0},
+            {1, 6, 0, 3, 2, 9, 5, 0, 7},
+            {0, 4, 9, 6, 0, 0, 0, 2, 0},
+            {2, 1, 8, 0, 5, 0, 0, 0, 4},
+            {6, 0, 5, 4, 0, 2, 8, 0, 1}}, // the one that started it all; my newspaper sudoku
         {
             {1, 2, 3, 0, 0, 7, 0, 0, 8},
             {4, 5, 6, 1, 0, 0, 0, 0, 0},
@@ -167,37 +168,46 @@ int main()
             {3, 0, 0, 0, 0, 0, 0, 1, 0},
             {0, 4, 0, 0, 0, 0, 0, 0, 7},
             {0, 0, 7, 0, 0, 0, 3, 0, 0}}, // "AI Escargot", the hardest single solution sudoku from Arto Inkala
-        {{8, 0, 0, 0, 0, 0, 0, 0, 0},
-         {0, 0, 3, 6, 0, 0, 0, 0, 0},
-         {0, 7, 0, 0, 9, 0, 2, 0, 0},
-         {0, 5, 0, 0, 0, 7, 0, 0, 0},
-         {0, 0, 0, 0, 4, 5, 7, 0, 0},
-         {0, 0, 0, 1, 0, 0, 0, 3, 0},
-         {0, 0, 1, 0, 0, 0, 0, 6, 8},
-         {0, 0, 8, 5, 0, 0, 0, 1, 0},
-         {0, 9, 0, 0, 0, 0, 4, 0, 0}}, // supposedly the hardest single solution sudoku from Arto Inkala https://abcnews.go.com/blogs/headlines/2012/06/can-you-solve-the-hardest-ever-sudoku
-                                       // this one actually does take longer than all the others to "solve" as it has the most branches to explore when solving
-                                       // but if it returned as soon as it found the first solution, it would be equivalent time
+        {
+            {8, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 3, 6, 0, 0, 0, 0, 0},
+            {0, 7, 0, 0, 9, 0, 2, 0, 0},
+            {0, 5, 0, 0, 0, 7, 0, 0, 0},
+            {0, 0, 0, 0, 4, 5, 7, 0, 0},
+            {0, 0, 0, 1, 0, 0, 0, 3, 0},
+            {0, 0, 1, 0, 0, 0, 0, 6, 8},
+            {0, 0, 8, 5, 0, 0, 0, 1, 0},
+            {0, 9, 0, 0, 0, 0, 4, 0, 0}}, // supposedly the hardest single solution sudoku from Arto Inkala https://abcnews.go.com/blogs/headlines/2012/06/can-you-solve-the-hardest-ever-sudoku
+                                          // this one actually does take longer than all the others to "solve" as it has the most branches to explore when solving
+                                          // but if it returned as soon as it found the first solution, it would be equivalent time
 
     };
 
     for (vector<vector<int>> board : boardList)
     {
         auto start = std::chrono::high_resolution_clock::now();
+
         cout << ANSI_BLUE << "\nOriginal board:\n"
              << ANSI_RESET;
         printBoard(board);
+
         if (solveSudoku(board))
         {
-            if(!verbose) { //'n'
+            if (!verbose)
+            { //'n'
                 cout << ANSI_GREEN << "Solution:\n"
                      << ANSI_RESET;
-                printBoard(board);
+                printBoard(board); // non verbose changes the original board, so it prints here
             }
-        } else {
+            // verbose output already prints the solutions as they are found
+        }
+        else
+        {
+            // both verbose and non-verbose output will print this message when no solution is found
             cout << ANSI_RED << "Out of solutions!\n"
                  << ANSI_RESET;
         }
+
         auto stop = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
         cout << ANSI_YELLOW << "Time taken: " << duration.count() << " milliseconds\n\n"
