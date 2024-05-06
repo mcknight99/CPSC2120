@@ -14,7 +14,7 @@ static string ANSI_PURPLE = "\u001B[35m";
 static string ANSI_CYAN = "\u001B[36m";
 static string ANSI_WHITE = "\u001B[37m";
 
-// I know global variables practice, but I'm using this next boolean for ease of use
+// I know global variables is not great practice, but I'm using this next boolean for ease of use
 // and not running the parameter down every recursive call to the solveSudoku method
 bool verbose = false;
 
