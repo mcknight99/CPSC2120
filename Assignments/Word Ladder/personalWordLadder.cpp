@@ -113,6 +113,7 @@ int main(void)
   cout << "Target: ";
   cin >> t;
 
+  path.push_back(s);
   wordLadder(s, t, steps, path);
 
   if (steps == 0)
