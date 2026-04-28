@@ -142,6 +142,7 @@ void build_graph()
 
 int main(void)
 {
+
   build_graph();
 
   state start = make_pair(0, 0);
@@ -153,6 +154,28 @@ int main(void)
     print_path(start, pred[make_pair(-1, -1)]);
   else
     cout << "No path!\n";
+
+  // print visited, pred, dist, nbrs
+  cout << "\nVisited States:\n";
+  for (const auto& entry : visited)
+    cout << "[" << entry.first.first << "," << entry.first.second << "] "
+         << (entry.second ? "visited" : "not visited") << "\n";
+  cout << "\nPredecessors:\n";
+  for (const auto& entry : pred)
+    cout << "[" << entry.first.first << "," << entry.first.second << "] <- "
+         << "[" << entry.second.first << "," << entry.second.second << "]\n";
+  cout << "\nDistances from Start State:\n";
+  for (const auto& entry : dist)
+    cout << "[" << entry.first.first << "," << entry.first.second << "] : "
+         << entry.second << "\n";
+  cout << "\nNeighbors:\n";
+  for (const auto& entry : nbrs)
+  {
+    cout << "[" << entry.first.first << "," << entry.first.second << "] : ";
+    for (const state& neighbor : entry.second)
+      cout << "[" << neighbor.first << "," << neighbor.second << "] ";
+    cout << "\n";
+  }
 
   return 0;
 }
